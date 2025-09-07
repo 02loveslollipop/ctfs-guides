@@ -24,10 +24,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 RUN pipx ensurepath && pipx install ropper
 
-# --- Install rizin from official repository ---
-RUN curl -fsSL https://apt.rizin.re/rizin.gpg | gpg --dearmor -o /usr/share/keyrings/rizin-archive-keyring.gpg && \
-    echo "deb [signed-by=/usr/share/keyrings/rizin-archive-keyring.gpg] https://apt.rizin.re stable main" > /etc/apt/sources.list.d/rizin.list && \
-    apt-get update && apt-get install -y rizin && \
+# --- Build rizin from source ---
+RUN apt-get update && apt-get install -y meson ninja-build libssl-dev liblz4-dev liblzma-dev libzstd-dev libzip-dev && \
+    git clone --depth=1 https://github.com/rizinorg/rizin.git /tmp/rizin && \
+    cd /tmp/rizin && \
+    meson setup build && \
+    meson compile -C build && \
+    meson install -C build && \
+    cd / && rm -rf /tmp/rizin && \
+    apt-get remove -y meson ninja-build && \
+    apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
 # --- Ruby gem: one_gadget ---
