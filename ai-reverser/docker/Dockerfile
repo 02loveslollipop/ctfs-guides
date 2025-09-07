@@ -48,6 +48,7 @@ RUN gem install one_gadget
 # --- Python stack (pwntools, angr, etc.) in venv ---
 RUN python3 -m venv /opt/ctf-venv && \
     /opt/ctf-venv/bin/pip install --upgrade pip && \
+    /opt/ctf-venv/bin/pip install --upgrade 'setuptools>=75.0.0' && \
     /opt/ctf-venv/bin/pip install \
       pwntools==4.* \
       angr==9.* \
