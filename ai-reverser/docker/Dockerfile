@@ -81,6 +81,5 @@ COPY --chmod=755 tools/ai-r2-quick.sh /opt/tools/ai-r2-quick.sh
 COPY --chmod=755 tools/ai-angr-solve.py /opt/tools/ai-angr-solve.py
 
 # --- Entrypoint ---
-COPY docker/entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+COPY --chmod=755 docker/entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
