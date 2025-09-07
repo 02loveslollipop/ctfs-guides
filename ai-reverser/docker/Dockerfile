@@ -39,13 +39,16 @@ RUN apt-get update && apt-get install -y meson ninja-build libssl-dev liblz4-dev
 # --- Ruby gem: one_gadget ---
 RUN gem install one_gadget
 
-# --- Python stack (pwntools, angr, etc.) ---
-RUN python3 -m pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir \
+# --- Python stack (pwntools, angr, etc.) in venv ---
+RUN python3 -m venv /opt/ctf-venv && \
+    /opt/ctf-venv/bin/pip install --upgrade pip && \
+    /opt/ctf-venv/bin/pip install \
       pwntools==4.* \
       angr==9.* \
       capstone unicorn keystone-engine r2pipe \
       z3-solver
+
+ENV PATH="/opt/ctf-venv/bin:$PATH"
 
 # --- Ghidra headless ---
 RUN mkdir -p /tmp/gh && \
