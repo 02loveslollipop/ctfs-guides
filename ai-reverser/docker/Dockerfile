@@ -67,7 +67,7 @@ RUN mkdir -p /tmp/gh && \
 # --- Non-root user & dirs ---
 RUN useradd -m -s /bin/bash ${USER} && \
     mkdir -p /work /opt/tools && \
-    chown -R ${USER}:${USER} /work /opt/tools ${GHIDRA_HOME}
+    chown -R ${USER}:${USER} /work /opt/tools ${GHIDRA_HOME} /home/${USER}
 USER ${USER}
 WORKDIR /work
 
