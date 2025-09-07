@@ -2,7 +2,7 @@
 FROM ubuntu:24.04
 
 ARG DEBIAN_FRONTEND=noninteractive
-ARG GHIDRA_VERSION=11.2
+ARG GHIDRA_VERSION=11.4.2
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8 \
     GHIDRA_HOME=/opt/ghidra \
     USER=ctf HOME=/home/ctf \
@@ -52,8 +52,8 @@ ENV PATH="/opt/ctf-venv/bin:$PATH"
 
 # --- Ghidra headless ---
 RUN mkdir -p /tmp/gh && \
-    curl -L -o /tmp/gh/ghidra.zip \
-      https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_${GHIDRA_VERSION}_PUBLIC/ghidra_${GHIDRA_VERSION}_PUBLIC_20240618.zip && \
+    curl -fSL -o /tmp/gh/ghidra.zip \
+      https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_${GHIDRA_VERSION}_PUBLIC/ghidra_${GHIDRA_VERSION}_PUBLIC_20250826.zip && \
     unzip -q /tmp/gh/ghidra.zip -d /opt && \
     mv /opt/ghidra_* ${GHIDRA_HOME} && \
     rm -rf /tmp/gh
