@@ -1,4 +1,6 @@
-# Copilot Agent Instructions for Reversing
+---
+applyTo: '**'
+---
 
 ## Workflow
 1. **Get context first**:
