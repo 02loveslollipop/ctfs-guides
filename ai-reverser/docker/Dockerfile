@@ -10,22 +10,28 @@ ENV LANG=C.UTF-8 LC_ALL=C.UTF-8 \
     PATH=/usr/local/bin:$PATH
 
 # --- Base OS & core tools ---
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    pipx python3-venv \
-    ca-certificates curl wget git unzip xz-utils build-essential cmake pkg-config \
-    python3 python3-pip openjdk-17-jre-headless \
-    file binutils patchelf checksec upx-ucl \
-    gdb gdbserver strace ltrace \
-    radare2 \
-    qemu-user-static \
-    ruby-full \
-    gnupg \
-  && rm -rf /var/lib/apt/lists/*
+RUN set -eux; \
+    echo 'APT::Acquire::Retries "5";' > /etc/apt/apt.conf.d/80retries; \
+    apt-get update || (sed -ri 's#http://(archive|security)\.ubuntu\.com/ubuntu#http://mirrors.edge.kernel.org/ubuntu#g' /etc/apt/sources.list && apt-get update); \
+    apt-get install -y --no-install-recommends \
+      pipx python3-venv \
+      ca-certificates curl wget git unzip xz-utils build-essential cmake pkg-config \
+      python3 python3-pip openjdk-17-jre-headless \
+      file binutils patchelf checksec upx-ucl \
+      gdb gdbserver strace ltrace \
+      radare2 \
+      qemu-user-static \
+      ruby-full \
+      gnupg \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN pipx ensurepath && pipx install ropper
 
 # --- Build rizin from source ---
-RUN apt-get update && apt-get install -y meson ninja-build libssl-dev liblz4-dev liblzma-dev libzstd-dev libzip-dev && \
+RUN set -eux; \
+    echo 'APT::Acquire::Retries "5";' > /etc/apt/apt.conf.d/80retries; \
+    apt-get update || (sed -ri 's#http://(archive|security)\.ubuntu\.com/ubuntu#http://mirrors.edge.kernel.org/ubuntu#g' /etc/apt/sources.list && apt-get update); \
+    apt-get install -y meson ninja-build libssl-dev liblz4-dev liblzma-dev libzstd-dev libzip-dev git && \
     git clone --depth=1 https://github.com/rizinorg/rizin.git /tmp/rizin && \
     cd /tmp/rizin && \
     meson setup build && \
