@@ -14,9 +14,9 @@ CTF reversing & pwn toolbox for VS Code + Copilot Agent
 ## Usage
 - Open in VS Code → "Reopen in Container"
 - Try:
-  - `ai-r2-quick ./tools/samples/hello-xor/hello_xor`
-  - `ai-ghidra-decompile ./tools/samples/hello-xor/hello_xor main`
-  - `ai-angr-solve ./tools/samples/hello-xor/hello_xor "Correct"`
+  - `ai-r2-quick ./tools/samples/hello-xor/sample`
+  - `ai-ghidra-decompile ./tools/samples/hello-xor/sample main`
+  - `ai-angr-solve ./tools/samples/hello-xor/sample "Correct"`
 
 ## Security
 - Non-root user

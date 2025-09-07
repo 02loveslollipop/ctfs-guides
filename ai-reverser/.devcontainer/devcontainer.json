@@ -12,12 +12,11 @@
     "source=${localWorkspaceFolder},target=/work,type=bind,consistency=cached"
   ],
   "postCreateCommand": "bash .devcontainer/postCreate.sh",
-  "settings": {
-    "terminal.integrated.defaultProfile.linux": "bash"
-  },
-  "features": {},
   "customizations": {
     "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      },
       "extensions": [
         "GitHub.copilot",
         "GitHub.copilot-chat",
