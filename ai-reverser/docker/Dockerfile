@@ -76,8 +76,9 @@ COPY docker/pwndbg-setup.sh /tmp/pwndbg-setup.sh
 RUN bash /tmp/pwndbg-setup.sh && rm /tmp/pwndbg-setup.sh || true
 
 # --- Helper scripts ---
-COPY tools /opt/tools
-RUN chmod +x /opt/tools/*.sh
+COPY --chmod=755 tools/ai-ghidra-decompile.sh /opt/tools/ai-ghidra-decompile.sh
+COPY --chmod=755 tools/ai-r2-quick.sh /opt/tools/ai-r2-quick.sh
+COPY --chmod=755 tools/ai-angr-solve.py /opt/tools/ai-angr-solve.py
 
 # --- Entrypoint ---
 COPY docker/entrypoint.sh /entrypoint.sh
