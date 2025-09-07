@@ -1,6 +1,6 @@
 {
   "name": "ai-reverser",
-  "build": { "dockerfile": "../docker/Dockerfile", "context": ".." },
+  "image": "02loveslollipop/ai-reverser:latest",
   "remoteUser": "ctf",
   "workspaceFolder": "/work",
   "runArgs": [

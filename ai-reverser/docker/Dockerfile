@@ -13,12 +13,22 @@ ENV LANG=C.UTF-8 LC_ALL=C.UTF-8 \
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates curl wget git unzip xz-utils build-essential cmake pkg-config \
     python3 python3-pip python3-venv openjdk-17-jre-headless \
-    file binutils patchelf checksec ropper upx-ucl \
+    file binutils patchelf checksec upx-ucl \
     gdb gdbserver strace ltrace \
-    radare2 rizin \
+    radare2 \
     qemu-user-static \
     ruby-full \
+    gnupg \
   && rm -rf /var/lib/apt/lists/*
+
+# --- Install ropper via pip ---
+RUN pip install ropper
+
+# --- Install rizin from official repository ---
+RUN curl -fsSL https://apt.rizin.re/rizin.gpg | gpg --dearmor -o /usr/share/keyrings/rizin-archive-keyring.gpg && \
+    echo "deb [signed-by=/usr/share/keyrings/rizin-archive-keyring.gpg] https://apt.rizin.re stable main" > /etc/apt/sources.list.d/rizin.list && \
+    apt-get update && apt-get install -y rizin && \
+    rm -rf /var/lib/apt/lists/*
 
 # --- Ruby gem: one_gadget ---
 RUN gem install one_gadget
