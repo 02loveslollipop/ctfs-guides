@@ -59,7 +59,7 @@ ENV PATH="/opt/ctf-venv/bin:$PATH"
 # --- Ghidra headless ---
 RUN mkdir -p /tmp/gh && \
     curl -fSL -o /tmp/gh/ghidra.zip \
-      https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_${GHIDRA_VERSION}_PUBLIC/ghidra_${GHIDRA_VERSION}_PUBLIC_20250826.zip && \
+      https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_11.4.2_build/ghidra_11.4.2_PUBLIC_20250826.zip && \
     unzip -q /tmp/gh/ghidra.zip -d /opt && \
     mv /opt/ghidra_* ${GHIDRA_HOME} && \
     rm -rf /tmp/gh
