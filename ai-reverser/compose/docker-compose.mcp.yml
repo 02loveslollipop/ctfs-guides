@@ -1,0 +1,19 @@
+services:
+  r2-mcp:
+    image: python:3.12-slim
+    working_dir: /srv
+    command: bash -lc "pip install r2pipe; python server.py"
+    volumes:
+      - ../work:/work
+      - ./r2-mcp:/srv
+    network_mode: host
+    user: "1000:1000"
+
+  ghidra-mcp:
+    image: ghcr.io/your/ghidra-mcp:latest
+    environment:
+      - GHIDRA_HOME=/opt/ghidra
+    volumes:
+      - ../work:/work
+    network_mode: host
+    user: "1000:1000"
