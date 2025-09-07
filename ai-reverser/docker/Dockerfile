@@ -11,8 +11,9 @@ ENV LANG=C.UTF-8 LC_ALL=C.UTF-8 \
 
 # --- Base OS & core tools ---
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    pipx python3-venv \
     ca-certificates curl wget git unzip xz-utils build-essential cmake pkg-config \
-    python3 python3-pip python3-venv openjdk-17-jre-headless \
+    python3 python3-pip openjdk-17-jre-headless \
     file binutils patchelf checksec upx-ucl \
     gdb gdbserver strace ltrace \
     radare2 \
@@ -21,8 +22,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     gnupg \
   && rm -rf /var/lib/apt/lists/*
 
-# --- Install ropper via pip ---
-RUN pip install ropper
+RUN pipx ensurepath && pipx install ropper
 
 # --- Install rizin from official repository ---
 RUN curl -fsSL https://apt.rizin.re/rizin.gpg | gpg --dearmor -o /usr/share/keyrings/rizin-archive-keyring.gpg && \
